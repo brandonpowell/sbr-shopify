@@ -96,6 +96,7 @@ const Navbar: FC = () => {
                 ></Image>
               </Link>
             )}
+
             {logo && logo.text && !logo.image && (
               <Link
                 href="/"
@@ -110,6 +111,7 @@ const Navbar: FC = () => {
             )}
           </Heading>
         </Box>
+        
         <Box
           sx={{
             display: 'flex',
@@ -119,6 +121,7 @@ const Navbar: FC = () => {
           }}
         >
           <Searchbar />
+          
           <Button onClick={openSidebar} aria-label="Cart">
             <Bag />
           </Button>
