@@ -46,33 +46,14 @@ const Navbar: FC = () => {
           maxWidth: 1920,
           py: 2,
           px: 2,
-          display: 'flex',
-          justifyContent: 'space-between',
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr 1fr', // Three equal columns
           alignItems: 'center',
           position: 'relative',
         }}
       >
-        <Box
-          sx={{
-            display: ['none', 'none', 'flex'],
-            flexBasis: 0,
-            minWidth: 240,
-            justifyContent: 'space-evenly',
-          }}
-        >
-          {navigationLinks?.map((link, index) => (
-            <Link key={index} sx={{ padding: 10 }} href={link.link || '//'}>
-              {link.title}
-            </Link>
-          ))}
-        </Box>
-        <Box
-          sx={{
-            transform: 'translateX(-50%)',
-            left: '50%',
-            position: 'absolute',
-          }}
-        >
+        {/* First Grid: Logo */}
+        <Box>
           <Heading
             sx={{
               fontSize: 20,
@@ -111,7 +92,24 @@ const Navbar: FC = () => {
             )}
           </Heading>
         </Box>
-        
+
+        {/* Second Grid: Navigation Links */}
+        <Box
+          sx={{
+            display: ['none', 'none', 'flex'],
+            flexBasis: 0,
+            minWidth: 240,
+            justifyContent: 'space-evenly',
+          }}
+        >
+          {navigationLinks?.map((link, index) => (
+            <Link key={index} sx={{ padding: 10 }} href={link.link || '//'}>
+              {link.title}
+            </Link>
+          ))}
+        </Box>
+
+        {/* Third Grid: Navbar */}
         <Box
           sx={{
             display: 'flex',
@@ -121,7 +119,7 @@ const Navbar: FC = () => {
           }}
         >
           <Searchbar />
-          
+
           <Button onClick={openSidebar} aria-label="Cart">
             <Bag />
           </Button>
@@ -131,4 +129,5 @@ const Navbar: FC = () => {
   )
 }
 
-export default Navbar
+export default Navbar;
+

@@ -7,14 +7,14 @@ import { useRouter } from 'next/router'
 import { BuilderComponent, builder, useIsPreviewing } from '@builder.io/react'
 import { resolveBuilderContent } from '@lib/resolve-builder-content'
 import builderConfig from '@config/builder'
-import shopifyConfig from '@config/shopify'
+import shopifyConfig from '@config/shopify' //You are config you shopify.
 import {
   getCollection,
   getAllCollectionPaths,
 } from '@lib/shopify/storefront-data-hooks/src/api/operations'
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
-import { useThemeUI } from '@theme-ui/core'
+import { useThemeUI } from '@theme-ui/core' 
 import { getLayoutProps } from '@lib/get-layout-props'
 
 builder.init(builderConfig.apiKey!)

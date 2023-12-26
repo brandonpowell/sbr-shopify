@@ -1,3 +1,5 @@
+//This is where the product object Objects but we getting error can help find this error with ths code plesse.
+
 import type {
   GetStaticPathsContext,
   GetStaticPropsContext,
