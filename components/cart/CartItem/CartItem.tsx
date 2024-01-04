@@ -84,6 +84,7 @@ const CartItem = ({
           src={item.variant.image.src}
         />
       </div>
+
       <div>
         <Link
           href={`/product/${item.variant.product.handle}/`}
@@ -109,6 +110,7 @@ const CartItem = ({
         <ul sx={{ mt: 2, mb: 0, padding: 0, listStyle: 'none' }}>
           <li>
             <div sx={{ display: 'flex', justifyItems: 'center' }}>
+
               <IconButton onClick={() => increaseQuantity(-1)}>
                 <Minus width={18} height={18} />
               </IconButton>
@@ -127,11 +129,14 @@ const CartItem = ({
                   onBlur={handleBlur}
                 />
               </label>
+
               <IconButton onClick={() => increaseQuantity(1)}>
                 <Plus width={18} height={18} />
               </IconButton>
+
             </div>
           </li>
+          
           {item.variant.selectedOptions.map((option: any) => (
             <li key={option.value}>
               {option.name}:{option.value}

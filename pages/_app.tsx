@@ -5,6 +5,7 @@ import { builder, Builder } from '@builder.io/react'
 import builderConfig from '@config/builder'
 builder.init(builderConfig.apiKey)
 
+import '../styles/layout.css';
 import '@builder.io/widgets'
 import '../blocks/ProductGrid/ProductGrid.builder'
 import '../blocks/CollectionView/CollectionView.builder'

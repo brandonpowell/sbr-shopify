@@ -10,23 +10,32 @@ import { ExpandModal } from '@components/modals'
 import { throttle } from 'lodash'
 import { Cross } from '@components/icons'
 
+// Define the prop types for the Searchbar component
 interface Props {
   className?: string
   id?: string
 }
 
+// Define the Searchbar component
 const Searchbar: FC<Props> = () => {
+  // Get the router instance from Next.js
   const router = useRouter()
+  // Extract the 'q' query parameter from the router
   const { q } = router.query
+  // State to manage the search modal's open/close state
   const [isOpen, setIsOpen] = useState(false)
+  // Reference to the search button element
   const buttonRef = useRef<HTMLDivElement>(null)
 
+  // Close the search modal when the route changes
   useEffect(() => {
     setIsOpen(false)
   }, [router.asPath.split('?')[0]])
 
+  // Render the Searchbar component
   return (
     <React.Fragment>
+      {/* ExpandModal is a modal component for displaying search results */}
       <ExpandModal
         overlayProps={{
           style: {
@@ -39,6 +48,7 @@ const Searchbar: FC<Props> = () => {
         }}
         isOpen={isOpen}
       >
+        {/* SearchModalContent is the content inside the search modal */}
         <SearchModalContent
           initialSearch={q && String(q)}
           onSearch={(term: string) => {
@@ -53,6 +63,7 @@ const Searchbar: FC<Props> = () => {
         />
       </ExpandModal>
 
+      {/* Search button */}
       <Box
         ref={buttonRef}
         as={Button}
@@ -82,15 +93,21 @@ const Searchbar: FC<Props> = () => {
   )
 }
 
+// Define the SearchModalContent component
 const SearchModalContent = (props: {
   initialSearch?: string
   onSearch: (term: string) => any
 }) => {
+  // State to manage the search term
   const [search, setSearch] = useState(
     props.initialSearch && String(props.initialSearch)
   )
+  // State to manage the fetched products
   const [products, setProducts] = useState([] as any[])
+  // State to manage loading state during product fetching
   const [loading, setLoading] = useState(false)
+
+  // Function to fetch products based on the search term
   const getProducts = async (searchTerm: string) => {
     setLoading(true)
     const results = await searchProducts(shopifyConfig, String(searchTerm))
@@ -102,14 +119,17 @@ const SearchModalContent = (props: {
     }
   }
 
+  // Fetch products when the component mounts
   useEffect(() => {
     if (search) {
       getProducts(search)
     }
   }, [])
 
+  // Throttle the search function to avoid rapid API calls
   const throttleSearch = useCallback(throttle(getProducts), [])
 
+  // Render the SearchModalContent component
   return (
     <Box
       sx={{
@@ -120,6 +140,7 @@ const SearchModalContent = (props: {
         width: '100%',
       }}
     >
+      {/* Input for searching products */}
       <Input
         type="search"
         sx={{ marginBottom: 15 }}
@@ -127,6 +148,7 @@ const SearchModalContent = (props: {
         placeholder="Search for products..."
         onChange={(event) => throttleSearch(event.target.value)}
       />
+      {/* Display loading message, search results, or no results based on state */}
       {loading ? (
         <span>Loading...</span>
       ) : products.length ? (
@@ -160,4 +182,5 @@ const SearchModalContent = (props: {
   )
 }
 
+// Export the Searchbar component as the default export
 export default Searchbar

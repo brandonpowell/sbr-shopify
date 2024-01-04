@@ -6,14 +6,25 @@ import { useCart } from '@lib/shopify/storefront-data-hooks'
 import { jsx, Box, useThemeUI, Heading, Button } from 'theme-ui'
 import { useUI } from '@components/common/context'
 import Image from 'next/legacy/image'
-import Searchbar from './Searchbar'
+
 import Link from '@components/common/Link'
 import { Bag } from '@components/icons'
+import Searchbar from './Searchbar'
+
+import fetchAccountPageData from '@components/common/Account'
+//import Favorites from '@components/common/Favorites'
 
 const Navbar: FC = () => {
   const [announcement, setAnnouncement] = useState()
   const { theme } = useThemeUI()
-  const { navigationLinks, logo, openSidebar } = useUI()
+  const { navigationLinks, thirdNavigationLink, logo, openSidebar } = useUI()
+  const handleButtonClick = async (value: any) => {
+
+    const accountPageData = await fetchAccountPageData();
+    console.log(accountPageData); 
+    // Now you can use accountPageData
+  };
+
   const cart = useCart()
 
   useEffect(() => {
@@ -26,6 +37,7 @@ const Navbar: FC = () => {
             itemInCart: items.map((item: any) => item.variant.product.handle),
           } as any,
         })
+        
         .toPromise()
       setAnnouncement(anouncementContent)
     }
@@ -52,7 +64,9 @@ const Navbar: FC = () => {
           position: 'relative',
         }}
       >
+        
         {/* First Grid: Logo */}
+
         <Box>
           <Heading
             sx={{
@@ -94,6 +108,7 @@ const Navbar: FC = () => {
         </Box>
 
         {/* Second Grid: Navigation Links */}
+
         <Box
           sx={{
             display: ['none', 'none', 'flex'],
@@ -118,11 +133,27 @@ const Navbar: FC = () => {
             justifyContent: ['space-between', 'flex-end'],
           }}
         >
-          <Searchbar />
+            <Searchbar />
 
-          <Button onClick={openSidebar} aria-label="Cart">
-            <Bag />
-          </Button>
+            <div className='line'></div>
+
+            <Button onClick={(event) => handleButtonClick(event)}>
+                Account
+            </Button>
+
+            {/* <Favorites /> */}
+
+            <Button onClick={openSidebar} aria-label="Cart">
+              <Bag />
+            </Button>
+
+            <div className='line'></div>
+
+            {thirdNavigationLink?.map((link: { link: string, title: string }, index: number) => (
+              <Link key={index} sx={{ padding: 10 }} href={link.link || '/'}>
+                {link.title}
+              </Link>
+            ))}
         </Box>
       </Box>
     </React.Fragment>
@@ -130,4 +161,3 @@ const Navbar: FC = () => {
 }
 
 export default Navbar;
-
