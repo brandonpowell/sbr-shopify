@@ -59,6 +59,7 @@
     "@types/shopify-buy": "^2.17.4",
     "@types/traverse": "0.6.32",
     "cheerio": "1.0.0-rc.12",
+    "eslint-config-react-app": "^7.0.1",
     "js-cookie": "^3.0.5",
     "next": "^14.0.4",
     "next-seo": "5.15.0",

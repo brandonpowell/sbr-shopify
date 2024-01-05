@@ -6,14 +6,18 @@ import { useRouter } from 'next/router'
 import { jsx } from '@emotion/react'
 import shopifyConfig from '@config/shopify'
 
-// Define the expected response structure from Shopify configuration
 interface shopifyConfig {
-  domain: process.env.SHOPIFY_STORE_DOMAIN; // Fixed: 'process.env.SHOPIFY_STORE_DOMAIN' was a string literal, changed to just 'string'
-  storefrontAccessToken: process.env.SHOPIFY_STOREFRONT_API_TOKEN; // Fixed: 'process.env.SHOPIFY_STOREFRONT_API_TOKEN' was a string literal, changed to just 'string'
+  apiKey: string;
+  apiSecret: string;
 }
 
+const config: shopifyConfig = {
+  apiKey: process.env.SHOPIFY_API_KEY || '',
+  apiSecret: process.env.SHOPIFY_STOREFRONT_API_TOKEN || '',
+};
+
 // Function to fetch Shopify configuration data
-const accountConfig = async (configKey: process.env.SHOPIFY_STOREFRONT_API_TOKEN): Promise<shopifyConfig> => {
+const accountConfig = async (configKey: string): Promise<shopifyConfig> => {
   // Placeholder for fetching Shopify configuration data
   const response = await fetch(`/api/shopify/config/${configKey}`);
   const data = await response.json();
